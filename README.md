@@ -13,5 +13,5 @@ Add your address in mine_block request where you get mining reward
 
 Change the port number
 
-Check the port numbers where nodes are running and update your your port in json file
+Check the port numbers where nodes are running and update your port in json file
 
