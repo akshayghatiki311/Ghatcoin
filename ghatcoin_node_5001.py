@@ -85,7 +85,7 @@ class Blockchain:
         longest_chain = None
         max_length = len(self.chain)
         for node in network:
-            response = requests.get(f'http://{node.netloc}/get_chain')
+            response = requests.get(f'http://{node}/get_chain')
             if(response.status_code == 200):
                 length = response.json()['length']
                 chain = response.json()['chain']
@@ -126,7 +126,6 @@ def mine_block():
                 'proof': block['proof'],
                 'transactions': block['transactions'],
                 'previous_hash': block['previous_hash']}
-    blockchain.replace_chain()
     return jsonify(response), 200
 
 #2.4 Getting the full Blockchain
@@ -168,9 +167,9 @@ def connect_node():
         return "No nodes",400
     for node in nodes:
         blockchain.add_node(node)
-        response = {'message':'All nodes are now connected. The Ghatcoin blockchain contains the following nodes:',
+    response = {'message':'All nodes are now connected. The Ghatcoin blockchain contains the following nodes:',
                     'total_nodes':list(blockchain.nodes)}
-        return jsonify(response),200
+    return jsonify(response),200
 
 #3.2 Replacing the chain with longest chain if needed
 @app.route('/replace_chain', methods=['GET'])
